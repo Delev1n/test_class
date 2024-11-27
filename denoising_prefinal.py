@@ -3,19 +3,6 @@ import numpy as np
 from segment import inference
 import os
 
-def get_non_contributing_indices(arrays, top_n, index):
-    cur_values = [(arrays[i][index], i) for i in range(len(arrays))]
-    cur_values = sorted(cur_values, key=lambda x: x[0], reverse=True)
-    print(top_n, cur_values)
-    # if top_n > 1 and float(cur_values[top_n][0]) - float(cur_values[top_n + 1][0]) < 0.1 and float(cur_values[top_n + 1][0]) > 0:
-    if top_n > 1:
-        new_top_n = top_n
-        for non_contributing in cur_values[top_n + 1:]:
-            if float(non_contributing[0]) and (float(cur_values[top_n][0]) / float(non_contributing[0])) >= 0.5:
-                new_top_n += 1
-        return [x[1] for x in cur_values[new_top_n:]]
-    return [x[1] for x in cur_values[top_n:]]
-
 PATH_TO_AUDIO_DIR = "C:\\Users\\nickh\\Desktop\\audios\\new_test_20_11"
 WINDOW_SIZE = int(0.1 * 48000)
 STRIDE = int(0.1 * 48000)
